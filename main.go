@@ -30,10 +30,36 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 }
 
 var (
-	Version string
+	// Following variables will be statically linked at the time of compiling
+
+   // GitCommit holds short commit hash of source tree
+    GitCommit string
+
+   // GitBranch holds current branch name the code is built off
+    GitBranch string
+
+   // GitState shows whether there are uncommitted changes
+    GitState string
+
+   // GitSummary holds output of git describe --tags --dirty --always
+    GitSummary string
+
+   // BuildDate holds RFC3339 formatted UTC date (build time)
+    BuildDate string
+
+   // Version holds contents of ./VERSION file, if exists, or the value passed via the -version option
+    Version string
 )
+
 func main() {
-	fmt.Printf("Version:%s\nAuthor:%s\n", Version)
+fmt.Printf(`
+   GitCommit: %s
+   GitBranch: %s
+    GitState: %s
+  GitSummary: %s
+   BuildDate: %s
+     Version: %s
+	`, GitCommit, GitBranch, GitState, GitSummary, BuildDate, Version)
 	// Build the address:port, if nothing was passed we have 8000 at
 	// port and it would result in "127.0.0.1:8000"
 	addr := fmt.Sprintf("127.0.0.1:%d", *port)
