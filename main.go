@@ -62,7 +62,7 @@ fmt.Printf(`
 	`, GitCommit, GitBranch, GitState, GitSummary, BuildDate, Version)
 	// Build the address:port, if nothing was passed we have 8000 at
 	// port and it would result in "127.0.0.1:8000"
-	addr := fmt.Sprintf("127.0.0.1:%d", *port)
+	addr := fmt.Sprintf("127.0.0.1:%d", 8000)
 	srv := &http.Server{
 		Addr: addr,
 		// Good practice: enforce timeouts for servers you create!
