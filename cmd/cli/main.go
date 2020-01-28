@@ -1,30 +1,35 @@
-裝 govvv, go get -u -v github.com/ahmetb/govvv
-在repository專案下執行 govvv -flags
+package main
 
-在程式中宣告以下 public 變數
+import (
+	"fmt"
+	"playbuild/pkg/zorntool1"
+	"playbuild/pkg/zorntool2"
+)
 
-// Following variables will be statically linked at the time of compiling
+
+var (
+	// Following variables will be statically linked at the time of compiling
 
    // GitCommit holds short commit hash of source tree
-   var GitCommit string
+    GitCommit string
 
    // GitBranch holds current branch name the code is built off
-   var GitBranch string
+    GitBranch string
 
    // GitState shows whether there are uncommitted changes
-   var GitState string
+    GitState string
 
    // GitSummary holds output of git describe --tags --dirty --always
-   var GitSummary string
+    GitSummary string
 
    // BuildDate holds RFC3339 formatted UTC date (build time)
-   var BuildDate string
+    BuildDate string
 
    // Version holds contents of ./VERSION file, if exists, or the value passed via the -version option
-   var Version string 
+    Version string
+)
 
-並在 main() 中加上
-
+func main() {
 fmt.Printf(`
    GitCommit: %s
    GitBranch: %s
@@ -33,9 +38,8 @@ fmt.Printf(`
    BuildDate: %s
      Version: %s
 	`, GitCommit, GitBranch, GitState, GitSummary, BuildDate, Version)
+fmt.Println()
+	zorntool1.Exec("yamazawa")
+	zorntool2.Exec()
 
-
-結論: govvv用在建置時期
-env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -a -ldflags "$(govvv -flags)" -o app
-
-當執行 ./app 時會看到版本被注入並被顯示在畫面上
+}

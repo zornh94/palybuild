@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -69,7 +71,16 @@ fmt.Printf(`
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-
+	
+	fmt.Println("===============================================")
+	fmt.Printf("HTTP_PROXY: %s\n", os.Getenv("HTTP_PROXY"))
+	fmt.Printf("HTTPS_PROXY: %s\n", os.Getenv("HTTPS_PROXY"))
+	fmt.Println("===============================================")
+	fmt.Println()
+	for _,e := range os.Environ(){
+		pair := strings.SplitN(e,"=",2)
+		fmt.Printf("%s = %s \n", pair[0], pair[1])
+	}
 	// The router
 	r := mux.NewRouter()
 

@@ -1,0 +1,27 @@
+透過 govvvv -flags 指令生成版本號字串,在go build 時透過 -ldflags "${govvv -flag寫入binary.
+你可於console下執行govvv -flags看看
+或在console下build binary看看
+env CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "$(govvv -flags)" -o app cmd/main.go
+
+
+
+1) Makefile 
+
+  *) build Binary in container 
+     [variables]
+	$OS
+	$ARCH
+	$BIN
+	$VERSION
+	$SRC_DIRS
+
+	$BASEIMG ?=
+	$BUILDIMG ?=
+
+	$REGISTRY ?=
+	$IMAGE  
+	$TAG
+
+     [taget]
+	build: 
+	 檢查bin是否存在,並進行Docker建置,最後產出bin 
